@@ -187,3 +187,69 @@ button.delete:hover {
     object-fit: cover;
     border: 2px solid white; /* Optional: can adjust or remove this */
 }
+
+#login-container {
+    background-color: #333333;
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    width: 300px;
+    text-align: center;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    margin: auto;
+}
+
+#login-title {
+    margin: 0 0 20px;
+}
+
+#email-label, #password-label {
+    margin: 10px 0 5px;
+    text-align: left;
+}
+
+#email-input, #password-input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #444444;
+    color: white;
+}
+
+#email-input:focus, #password-input:focus {
+    outline: none;
+    border: 2px solid #007bff;
+}
+
+#login-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#login-button:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+    display: none;
+}
+
+.website-content {
+    display: none;
+    text-align: center;
+}

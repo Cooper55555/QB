@@ -1,3 +1,20 @@
+document.getElementById('login-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('email-input').value;
+    const password = document.getElementById('password-input').value;
+
+    // Example validation logic for email and password
+    if (email === "qbayub@gmail.com" && password === "7326") { // Replace with your authentication logic
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('website').style.display = 'block';
+    } else {
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.textContent = 'Invalid email or password.';
+        errorMessage.style.display = 'block';
+    }
+});
+
 const uploadButton = document.getElementById("uploadButton");
 const fileInput = document.getElementById("fileInput");
 const fileList = document.getElementById("fileList");
@@ -16,17 +33,13 @@ const ideaList = document.getElementById("ideaList");
 const uploadImageButton = document.getElementById("uploadImageButton");
 const imageInput = document.getElementById("imageInput");
 const imageList = document.getElementById("imageList");
-
-const fileCountElement = document.getElementById("fileCount").querySelector('span');
-const imageCountElement = document.getElementById("imageCount").querySelector('span');
-const ideaCountElement = document.getElementById("ideaCount").querySelector('span');
-
-// AIzaSyDY51QFnhSEeQr9F1tkQQCUbZb7j0aJ2-E
-// UC6kucVIFcxcU7ZXSq5Y4eyg
+const fileCountElement = document.getElementById("fileCount")?.querySelector('span');
+const imageCountElement = document.getElementById("imageCount")?.querySelector('span');
+const ideaCountElement = document.getElementById("ideaCount")?.querySelector('span');
 
 const loadFiles = () => {
     const files = JSON.parse(localStorage.getItem("files")) || [];
-    fileCountElement.textContent = files.length;  // Update file count
+    fileCountElement.textContent = files.length;
     fileList.innerHTML = "";
     files.forEach((file, index) => {
         const li = document.createElement("li");
@@ -47,7 +60,7 @@ const loadFiles = () => {
         li.appendChild(deleteButton);
         fileList.appendChild(li);
     });
-}
+};
 
 const uploadFile = () => {
     const files = JSON.parse(localStorage.getItem("files")) || [];
@@ -57,22 +70,68 @@ const uploadFile = () => {
         files.push({ name: file.name, url });
         localStorage.setItem("files", JSON.stringify(files));
         loadFiles();
-        fileInput.value = ""; // Clear the input
-        updateChartData();    // Update chart after file upload
+        fileInput.value = "";
+        updateChartData();
     }
-}
+};
 
 const deleteFile = (index) => {
     const files = JSON.parse(localStorage.getItem("files")) || [];
     files.splice(index, 1);
     localStorage.setItem("files", JSON.stringify(files));
     loadFiles();
-    updateChartData(); // Update chart after file deletion
-}
+    updateChartData();
+};
+
+const loadImages = () => {
+    const images = JSON.parse(localStorage.getItem("images")) || [];
+    imageCountElement.textContent = images.length;
+    imageList.innerHTML = "";
+    images.forEach((image, index) => {
+        const li = document.createElement("li");
+        const imageName = image.name || image.imageName;
+
+        const downloadButton = document.createElement("a");
+        downloadButton.textContent = "Download";
+        downloadButton.href = image.url;
+        downloadButton.download = imageName;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.className = "delete";
+        deleteButton.onclick = () => deleteImage(index);
+
+        li.appendChild(document.createTextNode(imageName));
+        li.appendChild(downloadButton);
+        li.appendChild(deleteButton);
+        imageList.appendChild(li);
+    });
+};
+
+const uploadImage = () => {
+    const images = JSON.parse(localStorage.getItem("images")) || [];
+    const image = imageInput.files[0];
+    if (image) {
+        const url = URL.createObjectURL(image);
+        images.push({ name: image.name, url });
+        localStorage.setItem("images", JSON.stringify(images));
+        loadImages();
+        imageInput.value = "";
+        updateChartData();
+    }
+};
+
+const deleteImage = (index) => {
+    const images = JSON.parse(localStorage.getItem("images")) || [];
+    images.splice(index, 1);
+    localStorage.setItem("images", JSON.stringify(images));
+    loadImages();
+    updateChartData();
+};
 
 const loadIdeas = () => {
     const ideas = JSON.parse(localStorage.getItem("ideas")) || [];
-    ideaCountElement.textContent = ideas.length;  // Update idea count
+    ideaCountElement.textContent = ideas.length;
     ideaList.innerHTML = "";
     ideas.forEach((idea, index) => {
         const li = document.createElement("li");
@@ -86,7 +145,7 @@ const loadIdeas = () => {
         li.appendChild(deleteButton);
         ideaList.appendChild(li);
     });
-}
+};
 
 const submitIdea = () => {
     const ideas = JSON.parse(localStorage.getItem("ideas")) || [];
@@ -95,102 +154,22 @@ const submitIdea = () => {
         ideas.push(ideaText);
         localStorage.setItem("ideas", JSON.stringify(ideas));
         loadIdeas();
-        ideaInput.value = ""; // Clear the input
-        updateChartData(); // Update chart after idea submission
+        ideaInput.value = "";
+        updateChartData();
     }
-}
+};
 
 const deleteIdea = (index) => {
     const ideas = JSON.parse(localStorage.getItem("ideas")) || [];
     ideas.splice(index, 1);
     localStorage.setItem("ideas", JSON.stringify(ideas));
     loadIdeas();
-    updateChartData(); // Update chart after idea deletion
-}
+    updateChartData();
+};
 
-// Add functionality for images
-const loadImages = () => {
-    const images = JSON.parse(localStorage.getItem("images")) || [];
-    imageCountElement.textContent = images.length;  // Update image count
-    imageList.innerHTML = "";
-    images.forEach((image, index) => {
-        const li = document.createElement("li");
-        const imageName = image.name || image.imageName;
-
-        const downloadButton = document.createElement("a");
-        downloadButton.textContent = "Download";
-        downloadButton.href = image.url;
-        downloadButton.download = imageName; // Set the image name for download
-
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.className = "delete";
-        deleteButton.onclick = () => deleteImage(index);
-
-        li.appendChild(document.createTextNode(imageName));
-        li.appendChild(downloadButton);
-        li.appendChild(deleteButton);
-        imageList.appendChild(li);
-    });
-}
-
-const uploadImage = () => {
-    const images = JSON.parse(localStorage.getItem("images")) || [];
-    const image = imageInput.files[0];
-    if (image) {
-        const url = URL.createObjectURL(image);
-        images.push({ name: image.name, url });
-        localStorage.setItem("images", JSON.stringify(images));
-        loadImages();
-        imageInput.value = ""; // Clear the input
-        updateChartData(); // Update chart after image upload
-    }
-}
-
-const deleteImage = (index) => {
-    const images = JSON.parse(localStorage.getItem("images")) || [];
-    images.splice(index, 1);
-    localStorage.setItem("images", JSON.stringify(images));
-    loadImages();
-    updateChartData(); // Update chart after image deletion
-}
-
-// Update Chart Data
-const updateChartData = () => {
-    const fileCount = JSON.parse(localStorage.getItem("files"))?.length || 0;
-    const imageCount = JSON.parse(localStorage.getItem("images"))?.length || 0;
-    const ideaCount = JSON.parse(localStorage.getItem("ideas"))?.length || 0;
-
-    const ctx = document.getElementById('statsChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Files', 'Images', 'Ideas'],
-            datasets: [{
-                label: 'Count',
-                data: [fileCount, imageCount, ideaCount],
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-}
+uploadButton.addEventListener("click", uploadFile);
+uploadImageButton.addEventListener("click", uploadImage);
+submitIdeaButton.addEventListener("click", submitIdea);
 
 // Event Listeners for Navigation
 uploadButton.onclick = uploadFile;
@@ -208,7 +187,7 @@ homeTab.onclick = () => {
     ideasTab.classList.remove("active");
     imageTab.classList.remove("active");
     graphicTab.classList.remove("active");
-    updateChartData(); // Update chart data when going to home
+    updateChartData();
 };
 
 uploadTab.onclick = () => {
@@ -264,7 +243,7 @@ graphicTab.onclick = () => {
     ideasTab.classList.remove("active");
     imageTab.classList.remove("active");
     graphicTab.classList.add("active");
-    updateChartData(); // Update chart data when viewing graphics
+    updateChartData();
 };
 
 function youtube1() {
@@ -280,7 +259,6 @@ function youtube4() {
     window.open("https://www.youtube.com/@QbayubExtra");
 }
 
-// Trigger the home tab to be visible by default
 homeTab.click();
 loadFiles();
 loadImages();

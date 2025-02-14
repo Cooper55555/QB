@@ -5,93 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
-    <div id="login-container">
-        <form id="login-form">
-            <h2 id="login-title">Login To The QBayub Headquarters</h2>
-            <label for="email" id="email-label">Email:</label>
-            <input type="email" id="email-input" required>
-            <label for="password" id="password-label">Password:</label>
-            <input type="password" id="password-input" required>
-            <button type="submit" id="login-button">Login</button>
-            <div id="error-message" class="error-message"></div>
-        </form>
-    </div>
-    <div id="website" class="website-content" style="display: none;">
-    <div class="navbar">
-        <div class="logo">QBayub Headquarters</div>
-        <nav>
-            <ul>
-                <li><a href="#" id="homeTab" class="active">Home</a></li>
-                <li><a href="#" id="uploadTab">Upload Videos</a></li>
-                <li><a href="#" id="imageTab">Upload Thumbnails</a></li>
-                <li><a href="#" id="ideasTab">Submit Ideas</a></li>
-                <li><a href="#" id="graphicTab">Channels</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <div class="container" id="homeContainer">
-        <h1 class="homeTitle">Unfinished Work</h1>
-        <div class="stats">
-            <div id="fileCount">Videos: <span>0</span></div>
-            <div id="imageCount">Thumbnails: <span>0</span></div>
-            <div id="ideaCount">Ideas: <span>0</span></div>
-        </div>
-        <h1 class="homeTitle">Our Team</h1>
-        <div class="stats">
-            <div>Team Members: 7</div>
-            <div>Video Editter: 1</div>
-            <div>Short Editter: 1</div>
-        </div>
-        <div class="stats">
-            <div>Thumbnail Designer: 2</div>
-            <div>Manager: 1</div>
-            <div>Discord Manager: 1</div>
-        </div>
-        <div class="stats">
-            <div>Programmer: 1</div>
-            <div>Idea Maker: 1</div>
-            <div>Planning Maker: 1</div>
-        </div>
-    </div>
-    <div class="container" id="uploadContainer">
-        <h1 class="homeTitle">All Our Finished Videos!</h1>
-        <input type="file" id="fileInput">
-        <button id="uploadButton">Upload Video</button>
-        <ul id="fileList"></ul>
-    </div>
-    <div class="container" id="ideasContainer" style="display: none;">
-        <h1 class="homeTitle">All Our Ideas!</h1>
-        <textarea id="ideaInput" placeholder="Type your idea here.." maxlength="40"></textarea>
-        <button id="submitIdeaButton">Submit Idea</button>
-        <ul id="ideaList"></ul>
-    </div>
-    <div class="container" id="imageContainer" style="display: none;">
-        <h1 class="homeTitle">All Our Finished Thumbnails!</h1>
-        <input type="file" id="imageInput" accept="image/*">
-        <button id="uploadImageButton">Upload Thumbnail</button>
-        <ul id="imageList"></ul>
-    </div>
-
-    <div class="container" id="graphicContainer" style="display: none;">
-        <div class="channel" onclick="youtube1()">
-            <img src="https://yt3.googleusercontent.com/PPnJzjby03NHUXVFI5oX8p495ytbnP3IMloEFCxkp-rnesCoNTZb5V0n6XC9A7vSCkzmR88vjlw=s120-c-k-c0x00ffffff-no-rj" alt="Channel 1">
-        <div class="channel" onclick="youtube2()">
-            <img src="https://yt3.googleusercontent.com/q1fD0n5usRo_n0-q-e1x-tkpmEkbpsh5J4yY7oJ3Sd1LXuWbxCi0LB0MCIhG5w5n4RC2jhaP=s120-c-k-c0x00ffffff-no-rj" alt="Channel 2">
-        <div class="channel" onclick="youtube3()">
-            <img src="https://yt3.googleusercontent.com/avaWcVkRLDiHKG56lUrN0v1fz1RkUv2B8Kn9ZoPvzKBYaPjG0bhRsBLjBAc4PFaaXqm_oIu9dg=s120-c-k-c0x00ffffff-no-rj" alt="Channel 3">
-        <div class="channel" onclick="youtube4()">
-            <img src="https://yt3.googleusercontent.com/RNV908_DyY3t0m6QLAJKgCu_wIeqBvLDrM6dRV4x4rm8-IkgNyuUBiYsmzZeMi7c7bw2pJVL=s160-c-k-c0x00ffffff-no-rj" alt="Channel 4">
-        </div>
+  <div class="container" id="homeContainer">
+    <h1>Welcome to Planster!</h1>
+    <div class="button-group">
+        <button id="plannerButton"><i class="fas fa-calendar-alt"></i>&nbsp; Planner</button>
+        <button id="agendaButton"><i class="fas fa-calendar-check"></i>&nbsp; Agenda</button>
+        <button id="groceryButton"><i class="fas fa-shopping-cart"></i>&nbsp; Groceries</button>
     </div>
 </div>
+
+<div class="container" id="plannerContainer" style="display: none;">
+    <h1><i class="fas fa-calendar-alt"></i> Daily Planner</h1>
+    <div class="input-group">
+        <input type="text" id="taskInput" placeholder="Enter your task here..." maxlength="24" />
+        <button id="addTaskButton"><i class="fas fa-plus"></i></button>
+    </div>
+    <ul id="taskList"></ul>
+    <button onclick="showHome()">Go Back</button>
 </div>
-<h2 class="homeTitle">Click On The Profile To Get Send To The Channel</h2>
+
+<div class="container" id="agendaContainer" style="display: none;">
+    <h1><i class="fas fa-calendar-check"></i> Agenda</h1>
+    <div class="input-group">
+        <input type="text" id="agendaItemInput" placeholder="Enter agenda item..." maxlength="24" />
+        <input type="date" id="agendaDateInput" />
+        <button id="addAgendaButton"><i class="fas fa-plus"></i></button>
     </div>
+    <ul id="agendaItems"></ul>
+    <button onclick="showHome()">Go Back</button>
+</div>
+
+<div class="container" id="groceryContainer" style="display: none;">
+    <h1><i class="fas fa-shopping-cart"></i> Grocery List</h1>
+    <div class="input-group">
+        <input type="text" id="groceryItemInput" placeholder="Enter grocery item..." maxlength="24" />
+        <button id="addGroceryButton"><i class="fas fa-plus"></i></button>
     </div>
+    <ul id="groceryList"></ul>
+    <button id="removeGroceryListButton" style="display: none;"></button>
+    <button onclick="showHome()">Go Back</button>
+</div>
     <script src="index.js"></script>
 </body>
 </html>

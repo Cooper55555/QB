@@ -1,265 +1,185 @@
-document.getElementById('login-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+// Grocery list functionality
+let groceryItems = JSON.parse(localStorage.getItem('groceryItems')) || [];
 
-    const email = document.getElementById('email-input').value;
-    const password = document.getElementById('password-input').value;
+const groceryList = document.getElementById('groceryList');
+const groceryItemInput = document.getElementById('groceryItemInput');
+const addGroceryButton = document.getElementById('addGroceryButton');
+const removeGroceryListButton = document.getElementById('removeGroceryListButton');
 
-    // Example validation logic for email and password
-    if (email === "qbayub@gmail.com" && password === "7326") { // Replace with your authentication logic
-        document.getElementById('login-container').style.display = 'none';
-        document.getElementById('website').style.display = 'block';
-    } else {
-        const errorMessage = document.getElementById('error-message');
-        errorMessage.textContent = 'Invalid email or password.';
-        errorMessage.style.display = 'block';
+// Load grocery items from localStorage
+groceryItems.forEach(item => createGroceryElement(item));
+
+addGroceryButton.addEventListener('click', function() {
+    const groceryValue = groceryItemInput.value.trim();
+
+    if (groceryValue === '') {
+        alert('Please enter a grocery item.');
+        return;
+    }
+
+    if (groceryItems.length >= 2) {
+        alert('You can only add a maximum of 2 items at the moment.');
+        return;
+    }
+
+    createGroceryElement(groceryValue);
+    groceryItems.push(groceryValue);
+    localStorage.setItem('groceryItems', JSON.stringify(groceryItems));
+    groceryItemInput.value = '';
+
+    if (groceryItems.length === 2) {
+        removeGroceryListButton.style.display = 'block'; // Show the remove button when 2 items are added
     }
 });
 
-const uploadButton = document.getElementById("uploadButton");
-const fileInput = document.getElementById("fileInput");
-const fileList = document.getElementById("fileList");
-const ideasTab = document.getElementById("ideasTab");
-const uploadTab = document.getElementById("uploadTab");
-const imageTab = document.getElementById("imageTab");
-const graphicTab = document.getElementById("graphicTab");
-const homeContainer = document.getElementById("homeContainer");
-const uploadContainer = document.getElementById("uploadContainer");
-const ideasContainer = document.getElementById("ideasContainer");
-const imageContainer = document.getElementById("imageContainer");
-const graphicContainer = document.getElementById("graphicContainer");
-const submitIdeaButton = document.getElementById("submitIdeaButton");
-const ideaInput = document.getElementById("ideaInput");
-const ideaList = document.getElementById("ideaList");
-const uploadImageButton = document.getElementById("uploadImageButton");
-const imageInput = document.getElementById("imageInput");
-const imageList = document.getElementById("imageList");
-const fileCountElement = document.getElementById("fileCount")?.querySelector('span');
-const imageCountElement = document.getElementById("imageCount")?.querySelector('span');
-const ideaCountElement = document.getElementById("ideaCount")?.querySelector('span');
+removeGroceryListButton.addEventListener('click', function() {
+    groceryList.innerHTML = ''; // Clear the grocery list
+    groceryItems = [];
+    localStorage.removeItem('groceryItems'); // Clear grocery items from localStorage
+    removeGroceryListButton.style.display = 'none'; // Hide remove button
+});
 
-const loadFiles = () => {
-    const files = JSON.parse(localStorage.getItem("files")) || [];
-    fileCountElement.textContent = files.length;
-    fileList.innerHTML = "";
-    files.forEach((file, index) => {
-        const li = document.createElement("li");
-        const fileName = file.name || file.fileName;
-        li.textContent = fileName;
+function createGroceryElement(groceryValue) {
+    const li = document.createElement('li');
+    li.innerText = groceryValue;
 
-        const downloadButton = document.createElement("a");
-        downloadButton.textContent = "Download";
-        downloadButton.href = file.url;
-        downloadButton.download = fileName;
+    const removeButton = document.createElement('button');
+    removeButton.innerHTML = '<i class="fas fa-trash"></i>';
+    removeButton.addEventListener('click', function() {
+        groceryList.removeChild(li);
+        groceryItems.splice(groceryItems.indexOf(groceryValue), 1);
+        localStorage.setItem('groceryItems', JSON.stringify(groceryItems));
 
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.className = "delete";
-        deleteButton.onclick = () => deleteFile(index);
-
-        li.appendChild(downloadButton);
-        li.appendChild(deleteButton);
-        fileList.appendChild(li);
+        if (groceryItems.length < 2) {
+            removeGroceryListButton.style.display = 'none'; // Hide remove button if less than 2 items
+        }
     });
-};
 
-const uploadFile = () => {
-    const files = JSON.parse(localStorage.getItem("files")) || [];
-    const file = fileInput.files[0];
-    if (file) {
-        const url = URL.createObjectURL(file);
-        files.push({ name: file.name, url });
-        localStorage.setItem("files", JSON.stringify(files));
-        loadFiles();
-        fileInput.value = "";
-        updateChartData();
+    li.appendChild(removeButton);
+    groceryList.appendChild(li);
+}
+
+// Agenda functionality
+const agendaItemsContainer = document.getElementById('agendaItems');
+const agendaItemInput = document.getElementById('agendaItemInput');
+const agendaDateInput = document.getElementById('agendaDateInput');
+let agendaItems = JSON.parse(localStorage.getItem('agendaItems')) || [];
+
+// Load agenda items from localStorage
+agendaItems.forEach(item => createAgendaElement(item));
+
+document.getElementById('addAgendaButton').addEventListener('click', function() {
+    const agendaItem = agendaItemInput.value.trim();
+    const date = agendaDateInput.value;
+
+    if (agendaItem && date) {
+        createAgendaElement({ item: agendaItem, date: date });
+        agendaItems.push({ item: agendaItem, date: date });
+        localStorage.setItem('agendaItems', JSON.stringify(agendaItems));
+        agendaItemInput.value = '';
+        agendaDateInput.value = ''; // Reset date picker
+    } else {
+        alert('Please provide both an agenda item and a date.');
     }
-};
+});
 
-const deleteFile = (index) => {
-    const files = JSON.parse(localStorage.getItem("files")) || [];
-    files.splice(index, 1);
-    localStorage.setItem("files", JSON.stringify(files));
-    loadFiles();
-    updateChartData();
-};
+function createAgendaElement(agenda) {
+    const li = document.createElement('li');
+    li.innerText = `${agenda.item} - ${agenda.date}`;
 
-const loadImages = () => {
-    const images = JSON.parse(localStorage.getItem("images")) || [];
-    imageCountElement.textContent = images.length;
-    imageList.innerHTML = "";
-    images.forEach((image, index) => {
-        const li = document.createElement("li");
-        const imageName = image.name || image.imageName;
-
-        const downloadButton = document.createElement("a");
-        downloadButton.textContent = "Download";
-        downloadButton.href = image.url;
-        downloadButton.download = imageName;
-
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.className = "delete";
-        deleteButton.onclick = () => deleteImage(index);
-
-        li.appendChild(document.createTextNode(imageName));
-        li.appendChild(downloadButton);
-        li.appendChild(deleteButton);
-        imageList.appendChild(li);
+    const removeButton = document.createElement('button');
+    removeButton.innerHTML = '<i class="fas fa-trash"></i>';
+    removeButton.addEventListener('click', function() {
+        agendaItemsContainer.removeChild(li);
+        agendaItems = agendaItems.filter(item => item.item !== agenda.item || item.date !== agenda.date);
+        localStorage.setItem('agendaItems', JSON.stringify(agendaItems));
     });
-};
 
-const uploadImage = () => {
-    const images = JSON.parse(localStorage.getItem("images")) || [];
-    const image = imageInput.files[0];
-    if (image) {
-        const url = URL.createObjectURL(image);
-        images.push({ name: image.name, url });
-        localStorage.setItem("images", JSON.stringify(images));
-        loadImages();
-        imageInput.value = "";
-        updateChartData();
+    li.appendChild(removeButton);
+    agendaItemsContainer.appendChild(li);
+}
+
+// Planner functionality
+const taskList = document.getElementById('taskList');
+const taskInput = document.getElementById('taskInput');
+const addTaskButton = document.getElementById('addTaskButton');
+
+const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+tasks.forEach(task => createTaskElement(task));
+
+addTaskButton.addEventListener('click', function() {
+    const taskValue = taskInput.value.trim();
+    if (taskValue === '') {
+        alert('Please enter a task.');
+        return;
     }
-};
 
-const deleteImage = (index) => {
-    const images = JSON.parse(localStorage.getItem("images")) || [];
-    images.splice(index, 1);
-    localStorage.setItem("images", JSON.stringify(images));
-    loadImages();
-    updateChartData();
-};
+    createTaskElement(taskValue);
+    tasks.push(taskValue);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    taskInput.value = '';
+});
 
-const loadIdeas = () => {
-    const ideas = JSON.parse(localStorage.getItem("ideas")) || [];
-    ideaCountElement.textContent = ideas.length;
-    ideaList.innerHTML = "";
-    ideas.forEach((idea, index) => {
-        const li = document.createElement("li");
-        li.textContent = idea;
+function createTaskElement(taskValue) {
+  const li = document.createElement('li');
+  li.innerText = taskValue;
 
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.className = "delete";
-        deleteButton.onclick = () => deleteIdea(index);
+  const removeButton = document.createElement('button');
+  removeButton.innerHTML = '<i class="fas fa-check"></i>';
+  removeButton.addEventListener('click', function() {
+      taskList.removeChild(li);
+      const index = tasks.indexOf(taskValue);
+      if (index > -1) {
+          tasks.splice(index, 1);
+          localStorage.setItem('tasks', JSON.stringify(tasks));
+      }
+  });
 
-        li.appendChild(deleteButton);
-        ideaList.appendChild(li);
-    });
-};
-
-const submitIdea = () => {
-    const ideas = JSON.parse(localStorage.getItem("ideas")) || [];
-    const ideaText = ideaInput.value.trim();
-    if (ideaText) {
-        ideas.push(ideaText);
-        localStorage.setItem("ideas", JSON.stringify(ideas));
-        loadIdeas();
-        ideaInput.value = "";
-        updateChartData();
-    }
-};
-
-const deleteIdea = (index) => {
-    const ideas = JSON.parse(localStorage.getItem("ideas")) || [];
-    ideas.splice(index, 1);
-    localStorage.setItem("ideas", JSON.stringify(ideas));
-    loadIdeas();
-    updateChartData();
-};
-
-uploadButton.addEventListener("click", uploadFile);
-uploadImageButton.addEventListener("click", uploadImage);
-submitIdeaButton.addEventListener("click", submitIdea);
-
-// Event Listeners for Navigation
-uploadButton.onclick = uploadFile;
-submitIdeaButton.onclick = submitIdea;
-uploadImageButton.onclick = uploadImage;
-
-homeTab.onclick = () => {
-    homeContainer.style.display = "block";
-    uploadContainer.style.display = "none";
-    ideasContainer.style.display = "none";
-    imageContainer.style.display = "none";
-    graphicContainer.style.display = "none";
-    homeTab.classList.add("active");
-    uploadTab.classList.remove("active");
-    ideasTab.classList.remove("active");
-    imageTab.classList.remove("active");
-    graphicTab.classList.remove("active");
-    updateChartData();
-};
-
-uploadTab.onclick = () => {
-    homeContainer.style.display = "none";
-    uploadContainer.style.display = "block";
-    ideasContainer.style.display = "none";
-    imageContainer.style.display = "none";
-    graphicContainer.style.display = "none";
-    homeTab.classList.remove("active");
-    uploadTab.classList.add("active");
-    ideasTab.classList.remove("active");
-    imageTab.classList.remove("active");
-    graphicTab.classList.remove("active");
-    loadFiles();
-};
-
-ideasTab.onclick = () => {
-    homeContainer.style.display = "none";
-    uploadContainer.style.display = "none";
-    ideasContainer.style.display = "block";
-    imageContainer.style.display = "none";
-    graphicContainer.style.display = "none";
-    homeTab.classList.remove("active");
-    uploadTab.classList.remove("active");
-    ideasTab.classList.add("active");
-    imageTab.classList.remove("active");
-    graphicTab.classList.remove("active");
-    loadIdeas();
-};
-
-imageTab.onclick = () => {
-    homeContainer.style.display = "none";
-    uploadContainer.style.display = "none";
-    ideasContainer.style.display = "none";
-    imageContainer.style.display = "block";
-    graphicContainer.style.display = "none";
-    homeTab.classList.remove("active");
-    uploadTab.classList.remove("active");
-    ideasTab.classList.remove("active");
-    imageTab.classList.add("active");
-    graphicTab.classList.remove("active");
-    loadImages();
-};
-
-graphicTab.onclick = () => {
-    homeContainer.style.display = "none";
-    uploadContainer.style.display = "none";
-    ideasContainer.style.display = "none";
-    imageContainer.style.display = "none";
-    graphicContainer.style.display = "block";
-    homeTab.classList.remove("active");
-    uploadTab.classList.remove("active");
-    ideasTab.classList.remove("active");
-    imageTab.classList.remove("active");
-    graphicTab.classList.add("active");
-    updateChartData();
-};
-
-function youtube1() {
-    window.open("https://www.youtube.com/@QbayubReacts");
-}
-function youtube2() {
-    window.open("https://www.youtube.com/@Qbayub0");
-}
-function youtube3() {
-    window.open("https://www.youtube.com/@QbayubGaming");
-}
-function youtube4() {
-    window.open("https://www.youtube.com/@QbayubExtra");
+  li.appendChild(removeButton);
+  taskList.appendChild(li);
 }
 
-homeTab.click();
-loadFiles();
-loadImages();
-loadIdeas();
+// Navigation functions
+document.getElementById('plannerButton').addEventListener('click', function() {
+  showPlanner();
+});
+
+document.getElementById('agendaButton').addEventListener('click', function() {
+  showAgenda();
+});
+
+document.getElementById('groceryButton').addEventListener('click', function() {
+  showGroceryList();
+});
+
+// Function to show the planner section
+function showPlanner() {
+  document.getElementById('homeContainer').style.display = 'none';
+  document.getElementById('plannerContainer').style.display = 'block';
+  document.getElementById('agendaContainer').style.display = 'none';
+  document.getElementById('groceryContainer').style.display = 'none';
+}
+
+// Function to show the agenda section
+function showAgenda() {
+  document.getElementById('homeContainer').style.display = 'none';
+  document.getElementById('plannerContainer').style.display = 'none';
+  document.getElementById('agendaContainer').style.display = 'block';
+  document.getElementById('groceryContainer').style.display = 'none';
+}
+
+// Function to show the grocery list section
+function showGroceryList() {
+  document.getElementById('homeContainer').style.display = 'none';
+  document.getElementById('plannerContainer').style.display = 'none';
+  document.getElementById('agendaContainer').style.display = 'none';
+  document.getElementById('groceryContainer').style.display = 'block';
+}
+
+// Function to show the home section
+function showHome() {
+  document.getElementById('homeContainer').style.display = 'block';
+  document.getElementById('plannerContainer').style.display = 'none';
+  document.getElementById('agendaContainer').style.display = 'none';
+  document.getElementById('groceryContainer').style.display = 'none';
+}

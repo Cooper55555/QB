@@ -271,6 +271,23 @@ function TiktokLink() {
     window.open("https://www.tiktok.com/@qbayub");
 }
 
+function Secret() {
+    document.getElementById("workNowID").style.display = "none";
+    document.getElementById("contentID").style.display = "none";
+    document.getElementById("login-form").style.display = "block";
+}
+
+function Home() {
+    document.getElementById("workNowID").style.display = "flex";
+    document.getElementById("contentID").style.display = "flex";
+    document.getElementById("login-form").style.display = "none";
+}
+
+function Exit() {
+    document.getElementById("website").style.display = "none";
+    document.getElementById("login-container").style.display = "block";
+}
+
 homeTab.click();
 loadFiles();
 loadImages();

@@ -272,15 +272,17 @@ function TiktokLink() {
 }
 
 function Secret() {
-    document.getElementById("workNowID").style.display = "none";
-    document.getElementById("contentID").style.display = "none";
+    document.getElementById("home").style.display = "none";
+    document.getElementById("whitePart").style.display = "none";
     document.getElementById("login-form").style.display = "block";
+    document.getElementById("blackspace").style.display = "block";
 }
 
 function Home() {
-    document.getElementById("workNowID").style.display = "flex";
-    document.getElementById("contentID").style.display = "flex";
+    document.getElementById("home").style.display = "flex";
+    document.getElementById("whitePart").style.display = "flex";
     document.getElementById("login-form").style.display = "none";
+    document.getElementById("blackspace").style.display = "none";
 }
 
 function Exit() {

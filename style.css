@@ -2,7 +2,7 @@ body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
     background: linear-gradient(to bottom left, darksalmon, darksalmon, hotpink, lightblue, lightblue);
-    color: white; /* White Text */
+    color: white;
 }
 
 #navbarretje {
@@ -27,7 +27,7 @@ body {
 }
 
 .navbar {
-    background-color: #333; /* Slightly Darker Navbar */
+    background-color: #333;
     padding: 15px 20px;
     display: flex;
     align-items: center;
@@ -82,7 +82,7 @@ nav a.active, nav a:hover {
 }
 
 .stats div {
-    background-color: #555555; /* Darker background for stats */
+    background-color: #555555;
     padding: 12px;
     border-radius: 5px;
     flex: 1;
@@ -91,8 +91,8 @@ nav a.active, nav a:hover {
 }
 
 canvas {
-    width: 100% !important;  /* Ensures full width */
-    height: auto !important;  /* Maintains aspect ratio */
+    width: 100% !important;
+    height: auto !important; 
 }
 
 input, textarea {
@@ -179,12 +179,6 @@ button.delete:hover {
     text-align: center;
 }
 
-
-
-
-
-
-
 .channel-container {
     display: flex;
     flex-wrap: wrap;
@@ -218,7 +212,7 @@ button.delete:hover {
     width: 300px;
     height: 300px;
     text-align: center;
-    margin: 70px auto;  /* Center the form with margin */
+    margin: 70px auto;
 }
 
 #login-title {
@@ -274,7 +268,7 @@ button.delete:hover {
 }
 
 .content {
-    margin: 50px auto;  /* Set margin-top to 300px and used auto for horizontal centering */
+    margin: 50px auto;
     width: 1200px;
     background-color: #333333;
     color: white;
@@ -294,17 +288,17 @@ button.delete:hover {
 
 .left {
     float: left;
-    text-align: left; /* Align text to the left */
+    text-align: left;
 }
 
 .right {
     float: left;
-    text-align: left; /* Align text to the right */
+    text-align: left;
 }
 
 .center {
     float: center;
-    text-align: center; /* Align text to the right */
+    text-align: center;
 }
 
 .clearfix::after {
@@ -342,7 +336,7 @@ button.delete:hover {
     text-align: center;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    margin: 25px;  /* Improved margin spacing */
+    margin: 25px;
     display: flex;
     justify-content: center;
 }
@@ -441,19 +435,19 @@ button.delete:hover {
 
     .left {
         float: none;
-        text-align: center; /* Align text to the right */
+        text-align: center;
         margin: auto;
     }
 
     .right {
         float: none;
-        text-align: center; /* Align text to the right */
+        text-align: center;
         margin: auto;
     }
     
     .center {
         float: none;
-        text-align: center; /* Align text to the right */
+        text-align: center;
         margin: auto;
     }
   }
@@ -478,10 +472,10 @@ nav ul li {
 }
 
 .background-image {
-    background-image: url('QBayub Wallpaper.jpg'); /* Background image */
+    background-image: url('QBayub Wallpaper.jpg');
     background-size: cover;
     background-position: center;
-    height: 700px; /* Full height section */
+    height: 700px;
     position: relative;
     color: white;
     display: flex;
@@ -516,9 +510,9 @@ nav ul li {
 }
 
 .contact-bg {
-    background: white; /* White background for contact section */
+    background: white;
     padding: 40px 20px;
-    margin-top: -20px; /* Overlap with the background section */
+    margin-top: -20px;
     position: relative;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -552,7 +546,7 @@ nav ul li {
     border-bottom: 15px solid white;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%) translateY(20px); /* Adjusted position */
+    transform: translateX(-50%) translateY(20px);
     animation: bounce 2s infinite;
 }
 
@@ -669,4 +663,62 @@ footer {
 
 #greytext {
     color: white;
+}
+
+.title-generator-container {
+    max-width: 600px;
+    margin: 300px auto;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#title-generator-header {
+    margin-bottom: 20px;
+    color: white;
+}
+
+.title-generator-input {
+    width: calc(100% - 23px);
+    padding: 10px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.title-generator-button {
+    width: 100%;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: auto;
+    font-size: 30px;
+}
+
+.title-generator-button:hover {
+    background-color: #45a049;
+}
+
+.title-generator-titles {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.title-generator-title {
+    background-color: #555;
+    border-left: 5px solid #4CAF50;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    margin-top: 10px;
+}
+
+#generateRobotImage {
+    width: 200px;
 }

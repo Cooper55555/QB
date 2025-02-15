@@ -639,3 +639,30 @@ footer {
     list-style-type: none;
     padding: 0;
 }
+
+#tutorial {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #333;
+    border: 1px solid #333;
+    border-radius: 8px;
+}
+
+#tutorial h1 {
+    text-align: center;
+    color: white;
+}
+
+#tutorial h2, #tutorial h3 {
+    color: white;
+}
+
+#tutorial p {
+    line-height: 1.6;
+}
+
+#greytext {
+    color: white;
+}

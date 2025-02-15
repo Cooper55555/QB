@@ -276,6 +276,7 @@ function Secret() {
     document.getElementById("whitePart").style.display = "none";
     document.getElementById("login-form").style.display = "block";
     document.getElementById("blackspace").style.display = "block";
+    document.getElementById("tutorial").style.display = "none";
 }
 
 function Home() {
@@ -283,6 +284,15 @@ function Home() {
     document.getElementById("whitePart").style.display = "flex";
     document.getElementById("login-form").style.display = "none";
     document.getElementById("blackspace").style.display = "none";
+    document.getElementById("tutorial").style.display = "none";
+}
+
+function Tutorial() {
+    document.getElementById("home").style.display = "none";
+    document.getElementById("whitePart").style.display = "none";
+    document.getElementById("login-form").style.display = "none";
+    document.getElementById("blackspace").style.display = "none";
+    document.getElementById("tutorial").style.display = "block";
 }
 
 function Exit() {

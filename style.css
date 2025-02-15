@@ -1,7 +1,7 @@
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
-    background-color: white;
+    background: linear-gradient(to bottom left, orange, orange, purple, lightblue, lightblue);
     color: white; /* White Text */
 }
 
@@ -262,6 +262,10 @@ button.delete:hover {
     color: red;
     margin-top: 10px;
     display: none;
+}
+
+#website {
+    height: 100vh;
 }
 
 .website-content {
@@ -612,7 +616,7 @@ footer {
 #blackspace {
     padding: 20px;
     height: 1100px;
-    background-color: white;
+    background: linear-gradient(to bottom left, orange, orange, purple, lightblue, lightblue);
 }
 
 #about h2, #about h1, #about p, #services h2, #services h1, #services p {

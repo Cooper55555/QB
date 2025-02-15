@@ -1,7 +1,7 @@
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
-    background: linear-gradient(to bottom left, orange, orange, purple, lightblue, lightblue);
+    background: linear-gradient(to bottom left, darksalmon, darksalmon, hotpink, lightblue, lightblue);
     color: white; /* White Text */
 }
 
@@ -616,7 +616,7 @@ footer {
 #blackspace {
     padding: 20px;
     height: 1100px;
-    background: linear-gradient(to bottom left, orange, orange, purple, lightblue, lightblue);
+    background: linear-gradient(to bottom left, darksalmon, darksalmon, hotpink, lightblue, lightblue);
 }
 
 #about h2, #about h1, #about p, #services h2, #services h1, #services p {

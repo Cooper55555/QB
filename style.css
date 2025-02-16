@@ -820,16 +820,12 @@ footer {
   
     .card h2 {
       color: black;
-      font-size: 1.2rem;
+      font-size: 0.8rem;
     }
   
     .card p {
       font-size: 0.5rem;
     }
-
-    .card h2 {
-        font-size: 1.0rem;
-      }
   
     li {
       font-size: 0.5rem;

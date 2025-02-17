@@ -996,5 +996,6 @@ footer {
 
     header {
         overflow-x: auto;
+        justify-content: inherit;
     }
   }

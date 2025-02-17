@@ -675,6 +675,16 @@ footer {
     text-align: center;
 }
 
+.image-generator-container {
+    max-width: 600px;
+    margin: 300px auto;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
 #title-generator-header {
     margin-bottom: 20px;
     color: white;
@@ -689,6 +699,19 @@ footer {
 }
 
 .title-generator-button {
+    width: 100%;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: auto;
+    font-size: 30px;
+}
+
+.image-generator-button {
     width: 100%;
     padding: 20px;
     background-color: #4CAF50;
@@ -721,6 +744,12 @@ footer {
 
 #generateRobotImage {
     width: 200px;
+}
+
+#generated-image {
+    margin-top: 40px;
+    width: 100%;
+    border-radius: 10px;
 }
 
 @media screen and (max-width: 952px) {
@@ -912,6 +941,10 @@ footer {
     }
 
     .title-generator-container {
+        margin: 20px;
+    }
+
+    .image-generator-container {
         margin: 20px;
     }
   }

@@ -276,6 +276,7 @@ function Secret() {
     document.getElementById("blackspace").style.display = "block";
     document.getElementById("tutorial").style.display = "none";
     document.getElementById("title-container-ai").style.display = "none";
+    document.getElementById("image-container-ai").style.display = "none";
 }
 
 function Home() {
@@ -285,6 +286,7 @@ function Home() {
     document.getElementById("blackspace").style.display = "none";
     document.getElementById("tutorial").style.display = "none";
     document.getElementById("title-container-ai").style.display = "none";
+    document.getElementById("image-container-ai").style.display = "none";
 }
 
 function Tutorial() {
@@ -294,6 +296,7 @@ function Tutorial() {
     document.getElementById("blackspace").style.display = "none";
     document.getElementById("tutorial").style.display = "block";
     document.getElementById("title-container-ai").style.display = "none";
+    document.getElementById("image-container-ai").style.display = "none";
 }
 
 function Titles() {
@@ -303,6 +306,17 @@ function Titles() {
     document.getElementById("blackspace").style.display = "none";
     document.getElementById("tutorial").style.display = "none";
     document.getElementById("title-container-ai").style.display = "block";
+    document.getElementById("image-container-ai").style.display = "none";
+}
+
+function Images() {
+    document.getElementById("home").style.display = "none";
+    document.getElementById("whitePart").style.display = "none";
+    document.getElementById("login-form").style.display = "none";
+    document.getElementById("blackspace").style.display = "none";
+    document.getElementById("tutorial").style.display = "none";
+    document.getElementById("title-container-ai").style.display = "none";
+    document.getElementById("image-container-ai").style.display = "block";
 }
 
 function Exit() {
@@ -419,6 +433,14 @@ generateButton.addEventListener('click', () => {
         titleElement.textContent = title;
         generatedTitles.appendChild(titleElement);
     }
+});
+
+const generateButton2 = document.getElementById('generate-btn');
+const imageContainer2 = document.getElementById('generated-image');
+
+generateButton2.addEventListener('click', async () => {
+    const response = await fetch('https://picsum.photos/1920/1080');
+    imageContainer2.src = response.url;
 });
 
 homeTab.click();

@@ -685,6 +685,16 @@ footer {
     text-align: center;
 }
 
+.spellcheck-generator-container {
+    max-width: 600px;
+    margin: 300px auto;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
 #title-generator-header {
     margin-bottom: 20px;
     color: white;
@@ -750,6 +760,38 @@ footer {
     margin-top: 40px;
     width: 100%;
     border-radius: 10px;
+}
+
+#text-input {
+    width: calc(100% - 23px);
+    padding: 10px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    resize: none;
+    margin-bottom: 15px;
+}
+#output {
+    font-size: 18px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    width: calc(100% - 23px);
+    overflow-wrap: break-word;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.correct {
+    text-decoration: underline;
+    text-decoration-color: green;
+    text-underline-offset: 3px;
+}
+.incorrect {
+    text-decoration: underline;
+    text-decoration-color: red;
+    text-underline-offset: 3px;
 }
 
 @media screen and (max-width: 952px) {
@@ -946,5 +988,13 @@ footer {
 
     .image-generator-container {
         margin: 20px;
+    }
+
+    .spellcheck-generator-container {
+        margin: 20px;
+    }
+
+    header {
+        overflow-x: auto;
     }
   }

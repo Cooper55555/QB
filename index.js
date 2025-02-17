@@ -277,6 +277,7 @@ function Secret() {
     document.getElementById("tutorial").style.display = "none";
     document.getElementById("title-container-ai").style.display = "none";
     document.getElementById("image-container-ai").style.display = "none";
+    document.getElementById("spellcheck-container-ai").style.display = "none";
 }
 
 function Home() {
@@ -287,6 +288,7 @@ function Home() {
     document.getElementById("tutorial").style.display = "none";
     document.getElementById("title-container-ai").style.display = "none";
     document.getElementById("image-container-ai").style.display = "none";
+    document.getElementById("spellcheck-container-ai").style.display = "none";
 }
 
 function Tutorial() {
@@ -297,6 +299,7 @@ function Tutorial() {
     document.getElementById("tutorial").style.display = "block";
     document.getElementById("title-container-ai").style.display = "none";
     document.getElementById("image-container-ai").style.display = "none";
+    document.getElementById("spellcheck-container-ai").style.display = "none";
 }
 
 function Titles() {
@@ -307,6 +310,7 @@ function Titles() {
     document.getElementById("tutorial").style.display = "none";
     document.getElementById("title-container-ai").style.display = "block";
     document.getElementById("image-container-ai").style.display = "none";
+    document.getElementById("spellcheck-container-ai").style.display = "none";
 }
 
 function Images() {
@@ -317,6 +321,18 @@ function Images() {
     document.getElementById("tutorial").style.display = "none";
     document.getElementById("title-container-ai").style.display = "none";
     document.getElementById("image-container-ai").style.display = "block";
+    document.getElementById("spellcheck-container-ai").style.display = "none";
+}
+
+function Spellcheck() {
+    document.getElementById("home").style.display = "none";
+    document.getElementById("whitePart").style.display = "none";
+    document.getElementById("login-form").style.display = "none";
+    document.getElementById("blackspace").style.display = "none";
+    document.getElementById("tutorial").style.display = "none";
+    document.getElementById("title-container-ai").style.display = "none";
+    document.getElementById("image-container-ai").style.display = "none";
+    document.getElementById("spellcheck-container-ai").style.display = "block";
 }
 
 function Exit() {
@@ -442,6 +458,61 @@ generateButton2.addEventListener('click', async () => {
     const response = await fetch('https://picsum.photos/1920/1080');
     imageContainer2.src = response.url;
 });
+
+let typingTimer;
+const doneTypingInterval = 300;
+
+async function checkWord(word) {
+    if (!word) return true;
+
+    const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+    return response.ok;
+}
+
+function isValidSentence(sentence) {
+    const trimmed = sentence.trim();
+
+    if (trimmed.length === 0) return false;
+
+    const endsWithPunctuation = /[.!?]$/.test(trimmed);
+    return endsWithPunctuation;
+}
+
+async function checkText() {
+    clearTimeout(typingTimer);
+
+    typingTimer = setTimeout(async () => {
+        const textArea = document.getElementById('text-input');
+        const outputDiv = document.getElementById('output');
+        const sentences = textArea.value.split(/(?<=[.?!])\s+/);
+
+        outputDiv.innerHTML = '';
+
+        for (const sentence of sentences) {
+            const words = sentence.trim().split(/\s+/);
+            const spans = [];
+            const isValid = isValidSentence(sentence);
+
+            for (const wordWithPunctuation of words) {
+                const word = wordWithPunctuation.replace(/[.,!?"']/g, '');
+                const span = document.createElement('span');
+                span.textContent = wordWithPunctuation + ' ';
+
+                const isWordValid = await checkWord(word);
+                if (isWordValid) {
+                    span.classList.add('correct');
+                } else {
+                    span.classList.add('incorrect');
+                }
+
+                spans.push(span);
+            }
+
+            spans.forEach(span => outputDiv.appendChild(span));
+        }
+
+    }, doneTypingInterval);
+}
 
 homeTab.click();
 loadFiles();

@@ -17,6 +17,7 @@
                     <li><a href="#" onclick="Tutorial()">Tutorial</a></li>
                     <li><a href="#" onclick="Titles()">Titles</a></li>
                     <li><a href="#" onclick="Images()">Images</a></li>
+                    <li><a href="#" onclick="Spellcheck()">Spellcheck</a></li>
                     <li><a href="#" onclick="Secret()">Secret</a></li>
                 </ul>
             </nav>
@@ -146,6 +147,15 @@
             <button id="generate-btn" class="image-generator-button">Generate Image</button>
             <div id="image-container">
                 <img id="generated-image" src="https://storage.googleapis.com/media-newsinitiative/images/GO801_GNI_VerifyingPhotos_TitleCard.original.jpg" alt="Generated Image" />
+            </div>
+        </div>
+        <div class="spellcheck-generator-container" id="spellcheck-container-ai" style="display: none;">
+            <img src="https://dashboard.flashbots.net/static/media/Robot_Emoji_OG.06639373.png" id="generateRobotImage">
+            <h1 id="title-generator-header">The QByte Spellchecker</h1>
+            <p>Sadly this AI is still under construction.</p>
+            <div id="spellcheck-container">
+                <textarea id="text-input" placeholder="Type your text here.." oninput="checkText()"></textarea>
+                <div id="output"><br></div>
             </div>
         </div>
         <footer>

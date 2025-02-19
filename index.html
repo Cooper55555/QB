@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>QByte-Official</title>
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
@@ -18,7 +18,12 @@
           <ul>
             <li><a href="#" onclick="Home()">Home</a></li>
             <li><a href="#" onclick="Tutorial()">Tutorial</a></li>
-            <li><a href="#">Games</a></li>
+            <li>
+              <a href="#" id="game">Games &#8628;</a>
+              <ul id="sub-menu-snake">
+                <li><a href="game.html">Snake</a></li>
+              </ul>
+            </li>
             <li>
               <a href="#" onclick="toggleMenu()">QByte &#8628;</a>
               <ul class="sub-menu" id="sub-menu">
@@ -159,9 +164,9 @@
           <div id="error-message" class="error-message"></div>
         </form>
         <div class="stats-container">
-        <h1>YouTube Channel Stats</h1>
-        <div id="stats">Loading...</div>
-      </div>
+          <h1>YouTube Channel Stats</h1>
+          <div id="stats">Loading...</div>
+        </div>
         <section id="about">
           <h2>What We Do</h2>
           <p>

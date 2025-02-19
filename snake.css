@@ -7,7 +7,9 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  margin: 100px auto;
+  margin: 10px; /* Remove default body margins to eliminate scrolling */
+  padding: 0; /* Add padding for spacing */
+  min-height: 100vh; /* Ensure the body takes at least the full viewport height */
   background: linear-gradient(
     to bottom left,
     darksalmon,
@@ -17,9 +19,10 @@ body {
     lightblue
   );
   background-repeat: no-repeat;
-  background-size: cover;
-  height: 1000px;
+  background-size: cover; /* Cover the entire background */
+  overflow: hidden; /* Prevent scrolling */
 }
+
 #game-board {
   display: inline-block;
 }
@@ -38,7 +41,7 @@ h1 {
 
 #alerts {
   position: absolute;
-  top: 60%;
+  top: 50%;
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.685);

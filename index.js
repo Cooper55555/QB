@@ -632,7 +632,7 @@ function toggleMenu() {
   submenu.style.display = submenu.style.display === 'flex' ? 'none' : 'flex';
 }
 
-const apiKey = 'AIzaSyDC8W3qas71CUcbvkShong45T9mRVgucrM';
+const apiKey = 'Api_Key_Secret';
 const channelId = 'UC5PqpLqGiqo6XPKTmA7W90g';
 
 let intervalId;

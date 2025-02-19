@@ -1117,6 +1117,10 @@ body {
     .spellcheck-generator-container {
       margin: 20px;
     }
+
+    .stats-container {
+      margin: 25px;
+    }
   
     header li {
       width: 3rem;

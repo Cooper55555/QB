@@ -632,6 +632,64 @@ function toggleMenu() {
   submenu.style.display = submenu.style.display === 'flex' ? 'none' : 'flex';
 }
 
+const apiKey = 'AIzaSyDC8W3qas71CUcbvkShong45T9mRVgucrM';
+const channelId = 'UC5PqpLqGiqo6XPKTmA7W90g';
+
+let intervalId;
+
+async function fetchStats() {
+    const channelUrl = `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${apiKey}`;
+    const videosUrl = `https://www.googleapis.com/youtube/v3/search?part=id&channelId=${channelId}&maxResults=50&order=viewCount&key=${apiKey}`;
+
+    try {
+        const channelResponse = await fetch(channelUrl);
+        if (!channelResponse.ok) throw new Error('Error fetching channel data');
+        const channelData = await channelResponse.json();
+
+        const stats = channelData.items[0].statistics;
+        const snippet = channelData.items[0].snippet;
+
+        const videosResponse = await fetch(videosUrl);
+        if (!videosResponse.ok) throw new Error('Error fetching videos');
+        const videosData = await videosResponse.json();
+
+        const videoIds = videosData.items.map(item => item.id.videoId).join(',');
+        const videoDetailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=statistics,snippet&id=${videoIds}&key=${apiKey}`;
+        const videoDetailsResponse = await fetch(videoDetailsUrl);
+        if (!videoDetailsResponse.ok) throw new Error('Error fetching video details');
+        const videoDetailsData = await videoDetailsResponse.json();
+
+        let highestVideo = videoDetailsData.items.reduce((prev, current) => {
+            return (parseInt(prev.statistics.viewCount) > parseInt(current.statistics.viewCount)) ? prev : current;
+        });
+
+        document.getElementById('stats').innerHTML = `
+            <p><strong>Channel Name:</strong> ${snippet.title}</p>
+            <p><strong>Description:</strong> ${snippet.description}</p>
+            <p><strong>Creation Date:</strong> ${new Date(snippet.publishedAt).toLocaleDateString()}</p>
+                <p><strong>Total View Count:</strong> ${formatNumber(stats.viewCount)}</p>
+                <p><strong>Total Subscriber Count:</strong> ${formatNumber(stats.subscriberCount)}</p>
+                <p><strong>Total Video Count:</strong> ${formatNumber(stats.videoCount)}</p>
+                <p><strong>Highest Viewed Video:</strong> <a href="https://www.youtube.com/watch?v=${highestVideo.id}" target="_blank">${highestVideo.snippet.title}</a></p>
+                <p><strong>Highest Viewed Video Count:</strong> ${formatNumber(highestVideo.statistics.viewCount)}</p>
+            `;
+        } catch (error) {
+            document.getElementById('stats').innerHTML = `<p style="color:white;">Loading channel data...</p>`;
+        }
+    }
+
+    function formatNumber(num) {
+        return parseInt(num).toLocaleString();
+    }
+
+    function startLiveStats() {
+        if (intervalId) return;
+        intervalId = setInterval(fetchStats, 5000);
+        fetchStats();
+    }
+
+    window.onload = startLiveStats;
+
 homeTab.click();
 loadFiles();
 loadImages();

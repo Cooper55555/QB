@@ -18,6 +18,7 @@ body {
   );
   background-repeat: no-repeat;
   background-size: cover;
+  height: 1000px;
 }
 #game-board {
   display: inline-block;
@@ -37,7 +38,7 @@ h1 {
 
 #alerts {
   position: absolute;
-  top: 20%;
+  top: 60%;
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.685);
